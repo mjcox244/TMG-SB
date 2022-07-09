@@ -1,0 +1,14 @@
+discord.py==1.7.3
+asyncio==3.4.3
+colorama==0.4.4
+aiohttp>=3.7.4
+datetime==4.4
+psutil==5.8.0
+figlet==0.0.1
+image==1.5.33
+keyboard==0.13.5
+pyfiglet==0.8.post1
+fore==0.1
+requests==2.28.0
+win10toast==0.9
+colored==1.4.3
