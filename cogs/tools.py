@@ -18,6 +18,7 @@ from datetime import datetime
 from discord.ext import commands
 from colored import fg, attr, bg
 from http.client import HTTPException
+from weight_converter.convert import Kilograms, Pounds
 from currency_converter import CurrencyConverter
 
 from utils.common import *
@@ -100,6 +101,13 @@ class Commands(commands.Cog):
         await ctx.send(f"```ini\nTMG is now offline\n\n[{watermark}]```", delete_after=8)
         sys.exit()
 
+    @commands.command()
+    async def clean(self, ctx):
+        clear()
+        lau()
+        await ctx.message.delete()
+        await ctx.send("``Console has been cleared``")
+
     @commands.command(aliases=["clear", "cls"])
     async def cl(self, ctx, amount: int):
         
@@ -129,23 +137,62 @@ class Commands(commands.Cog):
         return await ctx.send("```ini\n[Registered] " + user.created_at.strftime(date_format) + f"\n[USER] {user.name}\n[ID] {user.id}\n\n[{watermark}]```", delete_after=8)
 
     @commands.command()
-    async def convert(self, ctx, go, ammount, to):
+    async def moneyconvert(self, ctx, go, ammount, to):
         result = c.convert(ammount, go, to)
 
-        await ctx.send(result)
+        await ctx.send(f"``{result}``")
 
-    # @commands.command()
-    # async def logall(self, ctx):
-    #     await ctx.message.delete()
+    @commands.command()
+    async def weightconvert(self, ctx, ammount: int, weight: str):
+        if weight == 'KG':
+            x = 'KG'
+            y = 'LBS'
+            kilograms = Kilograms(value=ammount)
+            result = kilograms.to_pounds()
+        elif weight == 'LBS':
+            x = 'LBS'
+            y = 'KG'
+            pounds = Pounds(value=ammount)
+            result = pounds.to_kilograms()
 
-    #     with open('logs.json', 'r') as file:
-    #         user_list = json.load(file)
-    #     members = await guild.fetch_members(limit=150).flatten()
-    #     for member in members:
-    #         user_list.append(member.id)
-    #     with open('logs.json', 'w') as file:
-    #         json.dump(user_list, file)
-    #     print('Logged All Users!')
+        await ctx.send(f"{ammount} {x} is ``{result}`` {y}")
+
+    @commands.command()
+    async def add(self, ctx, ammount: int, ammount2: int):
+        await ctx.message.delete()
+        answer = ammount + ammount2
+        await ctx.send(answer)
+
+    @commands.command()
+    async def minus(self, ctx, ammount: int, ammount2: int):
+        await ctx.message.delete()
+        answer = ammount - ammount2
+        await ctx.send(answer)
+
+    @commands.command()
+    async def times(self, ctx, ammount: int, ammount2: int):
+        await ctx.message.delete()
+        answer = ammount * ammount2
+        await ctx.send(answer)
+
+    @commands.command()
+    async def divide(self, ctx, ammount: int, ammount2: int):
+        await ctx.message.delete()
+        answer = ammount / ammount2
+        await ctx.send(answer)
+
+    @commands.command()
+    async def logall(self, ctx):
+        await ctx.message.delete()
+
+        with open('logs.json', 'r') as file:
+            user_list = json.load(file)
+        members = await self.guild.fetch_members(limit=150).flatten()
+        for member in members:
+            user_list.append(member.id)
+        with open('logs.json', 'w') as file:
+            json.dump(user_list, file)
+        print('Logged All Users!')
 
     @commands.command()
     async def lastMessage(self, ctx, users_id: int):

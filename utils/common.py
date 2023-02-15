@@ -6,7 +6,6 @@ import discord
 import colorama
 from os.path import exists
 from discord.ext import commands
-from discord.ext.commands import Bot
 
 from utils import themes
 

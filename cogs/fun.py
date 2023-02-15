@@ -45,7 +45,18 @@ class Commands(commands.Cog):
         await ctx.send("```ini\n" + cf + f"\n\n[{watermark}]```", delete_after=8)
 
     @commands.command()
+    async def spam(self, ctx, message, ammount: int):
+        await ctx.message.delete()
+
+        while True:
+            if 0 >= ammount:
+                await ctx.send(message)
+            else:
+                return False
+
+    @commands.command()
     async def cock(self, ctx):
+        await ctx.message.delete()
         amount = random.randint(1, 50)
         size = amount * '='
         cock = f"8{size}D"
