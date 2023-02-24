@@ -93,18 +93,6 @@ def main():
             e = input(f"{threads}\n\n[Enter] to return")
             clear()
             menu()
-        elif select == '5':
-            clear()
-            menu()
-        elif select == '6':
-            clear()
-            menu()
-        elif select == '7':
-            clear()
-            menu()
-        elif select == '8':
-            clear()
-            menu()
         elif select == '9':
             clear()
             themeChecker()
